@@ -16,7 +16,7 @@ jobs:
           docker run \
             -v ${{ github.workspace }}:/zap/wrk/:rw \
             ghcr.io/zaproxy/zaproxy:stable \
-            zap-full-scan.py -t https://qa-app.sclera.com -r /zap/wrk/testreport1.html -exit-code-threshold high
+            zap-full-scan.py -t https://qa-app.sclera.com -r /zap/wrk/testreport1.html -I
         continue-on-error: true
 
       - name: Upload ZAP Report
