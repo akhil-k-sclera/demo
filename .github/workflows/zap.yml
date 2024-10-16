@@ -1,0 +1,26 @@
+name: ZAP Full Scan
+
+on: [push]
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Run ZAP Full Scan on Web Application
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run ZAP Full Scan
+        run: |
+          docker run \
+            -v ${{ github.workspace }}:/zap/wrk/:rw \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-full-scan.py -t https://qa-app.sclera.com -r /zap/wrk/testreport1.html
+        continue-on-error: true
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: ZAP-Test-Report
+          path: testreport1.html
