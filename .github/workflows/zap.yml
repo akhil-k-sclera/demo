@@ -11,6 +11,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Set Permissions for Working Directory
+        run: sudo chmod -R 777 ${{ github.workspace }}
+
       - name: Run ZAP Full Scan
         run: |
           docker run \
